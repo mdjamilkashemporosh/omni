@@ -6,13 +6,20 @@ This is a Personal AI Assistant that utilizes the flexibility of open-source Oll
 - AI assistant powered by Ollama models
 - Streaming support
 - Frontend integration with easy-to-use HTML templates (index.html and load-tester.html)
+- Support all available ollama models.
+  
+## Demo 
+
+https://github.com/user-attachments/assets/646c0626-af15-4fdb-8c7e-0e140f408c2d
+
+![Screenshot 2025-04-18 at 11 57 13 PM](https://github.com/user-attachments/assets/e1cc44b1-0cf2-47ea-ab45-6cb1dd68170e)
+![Screenshot 2025-04-18 at 11 57 21 PM](https://github.com/user-attachments/assets/b64b83ce-6fd6-4d33-a749-bfe607f6aa5a)
 
 ## Prerequisites
 Ensure the following are installed on your machine:
 
 - Ollama (used for AI model serving)
-- Node.js (for running the backend)
-- Bun (for building and running the project)
+- Node.js & Bun (for running the backend)
 
 ## Installation
 Clone the Repository
@@ -51,13 +58,54 @@ npm run start
 
 ### Frontend
 
-In your frontend code, you need to update the API URL to match your backend configuration. Navigate to the frontend folder and open the config/config.js file. Then, update the following line accordingly:
+#### 1. Install Dependencies
+
+Navigate to the `frontend` folder and run: 
+```bash
+npm install -g http-server
+```
+#### 2. Configure api URL:
+In your frontend code, you need to update the API URL to match your backend configuration. Navigate to the `frontend` folder and open the `config/config.js` file. Then, update the following line accordingly:
 
 ```js
 export const API_URL = '';  // (e.g., http://localhost:8000/chat)
 ```
+#### 3. Start the server:
+```bash
+http-server
+```
+Once the server is started, URLs should be displayed in your terminal. Now, use one of the URLs to start using the application. 🚀
 
-# 🚀  Once your backend is running and the frontend is set up, open the HTML file in your browser to interact with the application. 🚀 
+> The application comes with a load tester (for concurrent requests). You can navigate to the `/load-tester.html` to use it.
+
+## Below is an overview of the project structure: 
+```bash
+├── README.md
+├── backend
+│   ├── README.md
+│   ├── bun.lock
+│   ├── config
+│   │   └── config.ts
+│   ├── index.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   ├── types
+│   │   ├── config.d.ts
+│   │   ├── index.d.ts
+│   │   └── requireEnv.d.ts
+│   ├── utils
+│   │   └── requireEnv.ts
+│   └── .env
+└── frontend
+    ├── config
+    │   └── config.js
+    ├── index.html
+    ├── js
+    │   ├── index.js
+    │   └── load-tester.js
+    └── load-tester.html
+```
+
 ## Contribution
 
 We welcome contributions to improve this project! Here are some ways you can contribute:
