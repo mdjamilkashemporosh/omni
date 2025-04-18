@@ -4,38 +4,15 @@
 <head>
   <meta charset="UTF-8" />
   <title>Chat</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 2rem
-    }
-
-    #response {
-      white-space: pre-wrap;
-      border: 1px solid #ccc;
-      padding: 1rem;
-      margin-top: 1rem;
-      min-height: 150px;
-      background: #f9f9f9
-    }
-
-    button {
-      padding: .5rem 1rem;
-      font-size: 1rem;
-      margin-top: 1rem
-    }
-  </style>
+  <style>body{font-family:Arial,sans-serif;margin:2rem}#response{white-space:pre-wrap;border:1px solid #ccc;padding:1rem;margin-top:1rem;min-height:150px;background:#f9f9f9}button{padding:.5rem 1rem;font-size:1rem;margin-top:1rem}</style>
 </head>
-
 <body>
   <h1>💬 Chat</h1>
   <label for="prompt">Prompt:</label><br />
   <textarea id="prompt" rows="4" cols="60" placeholder="Type something..."></textarea><br />
   <button onclick="sendPrompt()">Send</button>
-
   <h2>Response:</h2>
   <div id="response"></div>
-
   <script>
     const API_URL = 'http://localhost:8000/chat';
     async function sendPrompt() {
@@ -49,16 +26,13 @@
         },
         body: JSON.stringify({ prompt })
       });
-
       if (!response.ok) {
         responseDiv.innerHTML = `❌ Error: ${response.status}`;
         return;
       }
-
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
       responseDiv.innerHTML = '';
-
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
@@ -68,5 +42,4 @@
     }
   </script>
 </body>
-
 </html>

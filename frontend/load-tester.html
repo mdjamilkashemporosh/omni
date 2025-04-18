@@ -4,54 +4,16 @@
 <head>
   <meta charset="UTF-8" />
   <title>Concurrent Load Test</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 2rem;
-    }
-
-    label,
-    textarea,
-    input {
-      display: block;
-      margin-top: 1rem;
-    }
-
-    button {
-      margin-top: 1rem;
-      padding: 0.5rem 1.2rem;
-      font-size: 1rem;
-    }
-
-    .response {
-      white-space: pre-wrap;
-      border: 1px solid #ccc;
-      padding: 1rem;
-      margin-top: 1rem;
-      background: #f9f9f9;
-    }
-
-    .response-header {
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-      color: #555;
-    }
-  </style>
+  <style>body{font-family:Arial,sans-serif;margin:2rem}input,label,textarea{display:block;margin-top:1rem}button{margin-top:1rem;padding:.5rem 1.2rem;font-size:1rem}.response{white-space:pre-wrap;border:1px solid #ccc;padding:1rem;margin-top:1rem;background:#f9f9f9}.response-header{font-weight:700;margin-bottom:.5rem;color:#555}</style>
 </head>
-
 <body>
   <h1>Concurrent Load Tester</h1>
-
   <label for="prompt">Prompt:</label>
   <textarea id="prompt" rows="4" cols="60">Tell me something inspiring.</textarea>
-
   <label for="count">Number of Concurrent Requests:</label>
   <input type="number" id="count" value="5" min="1" />
-
   <button onclick="runConcurrentTest()">Run Concurrent Test</button>
-
   <div id="results"></div>
-
   <script>
     const API_URL = 'http://localhost:8000/chat'
     async function streamRequest(prompt, index) {
@@ -62,14 +24,10 @@
       header.className = 'response-header';
       header.textContent = `Request #${index} (streaming...)`;
       responseBox.appendChild(header);
-
       const content = document.createElement('div');
       responseBox.appendChild(content);
-
       document.getElementById('results').appendChild(responseBox);
-
       try {
-
         const response = await fetch(API_URL, {
           method: 'POST',
           headers: {
@@ -77,11 +35,9 @@
           },
           body: JSON.stringify({ prompt })
         });
-
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         let fullText = '';
-
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
@@ -89,7 +45,6 @@
           fullText += chunk;
           content.textContent += chunk;
         }
-
         const end = performance.now();
         header.textContent = `✅ Request #${index} - ${Math.round(end - start)} ms`;
       } catch (err) {
@@ -97,17 +52,14 @@
         content.textContent = err.message;
       }
     }
-
     async function runConcurrentTest() {
       const prompt = document.getElementById('prompt').value;
       const count = parseInt(document.getElementById('count').value, 10);
       const results = document.getElementById('results');
       results.innerHTML = `<p>⏳ Launching ${count} concurrent requests...</p>`;
-
       const requests = Array.from({ length: count }, (_, i) =>
         streamRequest(prompt, i + 1)
       );
-
       await Promise.all(requests);
     }
   </script>
