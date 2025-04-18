@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "scripts": {
+    "build": "bun build",
+    "start": "bun run dist/index.js",
+    "dev": "bun --watch index.ts"
+  },
+  "dependencies": {
+    "@langchain/core": "^0.3.45",
+    "@langchain/ollama": "^0.2.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}

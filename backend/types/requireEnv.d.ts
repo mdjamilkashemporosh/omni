@@ -1,0 +1,1 @@
+export type RequireEnvFn = (name: string) => string;
